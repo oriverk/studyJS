@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang=ja>
+  <head>
+    <meta charset="utf-8">
+    <title>GoogleChartApi</title>
+    <!-- Google charts https://developers.google.com/chart -->
+  </head>
+  <body>
+    <div id=target></div>
+    <script src='https://www.gstatic.com/charts/loader.js'></script>
+    <script>
+      (function(){
+        'use strict';
+
+        function drawChart(){
+          const target = document.getElementById('target');
+          let data;
+          const options = {
+            title: 'My Chart',
+            widht: 500,
+            height: 300,
+            // backgroundColor: 'gray',
+            // colors: ['#aaa', '#bbb', '#ccc'],
+            // slices: [1, {offset: 0.2}],
+            // pieHole: 0.4,
+            // is3D: true,
+            // animation:{
+            //   startup: true,
+            //   duration: 800,
+            //   easing: 'inAndOut'
+            // },
+            // isStacked: true,
+            // isStacked: 'percent',
+            hAxis: {title: 'Year'},
+            vAxis: {title: 'Sales'},
+            curveType: 'function',
+            pointSize: 10,
+            pointShape: 'triangle',
+            
+
+          };
+          // const chart = new google.visualization.PieChart(target);
+          // const chart = new google.visualization.BarChart(target);
+          // const chart = new google.visualization.ColumnChart(target);
+          const chart = new google.visualization.LineChart(target);
+          // data = new google.visualization.DataTable();
+          // data.addColumn('string', 'Language');
+          // data.addColumn('number', 'Votes');
+          // data.addRow(['PHP',30]);
+          // data.addRow(['Ruby',20]);
+          // data.addRow(['Python',10]);
+
+          // when arrayToDataTable, do not define type
+          data = new google.visualization.arrayToDataTable([
+            // ['Language', 'Votes'],
+            // ['PHP', 100],
+            // ['Ruby', 20],
+            // ['Python', 100] 
+
+            // ['Team', 'Item-1', 'Item-2'],
+            // ['Team A', 12, 38],
+            // ['Team B', 42, 18],
+            // ['Team C', 11, 58],
+            
+            ['Year', '@taguchi', { role: 'annotation' }, { role: 'certainty' }, '@fkoji', { role: 'certainty' }],
+            ['2014', 52, 'Campaign A', true, 89, true],
+            ['2015', 38, null, true, 78, true],
+            ['2016', 44, null, true, 88, true],
+            ['2017', 62, null, false, 91, false]
+
+          ]);
+          chart.draw(data, options);
+        }
+
+        google.charts.load('current', {packages: ['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+      })();
+    </script>
+  </body>
+</html>

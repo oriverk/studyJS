@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang=ja>
+  <head>
+    <meta charset="utf-8">
+    <title>MyMapsGeoCoding</title>
+    <style>
+      #target {
+        width: 700px;
+        height: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id=target></div>
+    <input type="text" name="" id="address">
+    <button id=search>Search</button>
+    <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=AIzaSyDwofueKhXxoFT50QWLOxbRrRJR9f91Tx0&callback=initMap" async defer></script>
+    <script>
+      function initMap(){
+        'use strict';
+        var target = document.getElementById('target');
+        var geocoder = new google.maps.Geocoder();
+        var map;
+        // Geocoding: Address -> LatLng
+        
+        document.getElementById('search').addEventListener('click', function(){
+          geocoder.geocode({
+            address: document.getElementById('address').value
+          }, function(results, status){
+            if (status !== 'OK'){
+              alert('Failed: ' + status);
+              return;
+            }
+            // results[0].geometry.location
+            if (results[0]){
+              new google.maps.Map(target,{
+                center: results[0].geometry.location,
+                zoom: 15,
+              });
+            } else {
+              alert('No results found');
+            }
+          });
+        });
+        
+        // Reverse Geocoding: LatLng -> Address
+         map = new google.maps.Map(target, {
+          center: {
+            lat: 35.681167,
+            lng: 139.767052
+          },
+          zoom: 15
+        });
+
+        map.addListener('click', function (e) {
+          geocoder.geocode({
+            location: e.latLng
+          }, function (results, status) {
+            if (status !== 'OK') {
+              alert('Failed: ' + status);
+              return;
+            }
+            // results[0].formatted_address
+            if (results[0]) {
+              new google.maps.Marker({
+                position: e.latLng,
+                map: map,
+                title: results[0].formatted_address,
+                animation: google.maps.Animation.DROP
+              });
+            } else {
+              alert('No results found');
+              return;
+            }
+          });
+        });
+
+      }
+    </script>
+  </body>
+</html>

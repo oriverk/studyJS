@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>routeFav</title>
+
+  <meta name="viewport" content="width=device-width, initial=1.0">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
+  <script>
+    function init() {
+      let map = L.map('mapcontainer');
+      map.setView([38.3, 138], 10);
+      L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png', {
+        attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>"
+      }).addTo(map);
+
+      let gpx_lst = 'sample.gqx';
+
+      for (let i = 0; i < gpx_lst.length; i++) {
+        new L.GPX('gpx/' + gpx_lst[i], {
+          async: true,
+          marker_options: {
+            startIconUrl: false,
+            endIconUrl: false,
+            shadowUrl: false
+          },
+          polyline_options: {
+            color: 'red',
+            opacity: 0.75,
+            weight: 3,
+            lineCap: 'round'
+          }
+        }).on('loaded', function (e) {
+        }).addTo(map);
+      }
+    }
+  </script>
+</head>
+<body onload="init()">
+  <div id="mapcontainer" style="width:450px;height:450px"></div>
+</body>
+
+</html>
