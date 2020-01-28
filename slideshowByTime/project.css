@@ -1,0 +1,34 @@
+.slideshow .slidebg {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	transition: 4s; 
+}
+
+.slideshow .show {
+	opacity: 1;
+	z-index: 1;
+	transition: 4s;
+}
+
+#udemy {
+	background-image: url("images/udemy.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#udemy1{
+	background-image: url("images/udemy1.jpg");
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#udemy{
+	background-image: url("images/udemy2.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
